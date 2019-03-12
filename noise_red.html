@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="Danny Tryon" content="">
+    <link rel="shortcut icon" href="assets/ico/favicon.png">
+
+    <title>Danny Tryon</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="assets/css/main.css" rel="stylesheet">
+	<link rel="stylesheet" href="assets/css/font-awesome.min.css">
+
+    <script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/modernizr.custom.js"></script>
+	<script src="assets/js/jquery.bcSwipe.js"></script>
+	
+
+	
+    <link href='http://fonts.googleapis.com/css?family=Oswald:400,300,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=EB+Garamond' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="assets/js/html5shiv.js"></script>
+      <script src="assets/js/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body data-spy="scroll" data-offset="0" data-target="#theMenu">
+		
+	<!-- Menu -->
+	<nav class="menu" id="theMenu">
+		<div class="menu-wrap">
+			<h1 class="logo"><a href="./index.html#home">DT</a></h1>
+			<i class="icon-remove menu-close"></i>
+			<!-- class="smoothScroll" -->
+			<a href="./index.html#home">Home</a>
+			<a href="./index.html#about">About</a>
+			<a href="./index.html#portfolio">Portfolio</a>
+			<a href="./index.html#contact">Contact</a>
+			<a href="https://github.com/tryond" target="_blank"><i class="icon-github"></i></a>
+			<a href="https://linkedin.com/in/tryond" target="_blank"><i class="icon-linkedin"></i></a>
+			<a href="#email"><i class="icon-envelope"></i></a>
+		</div>
+		
+		<!-- Menu button -->
+		<div id="menuToggle"><i class="icon-reorder"></i></div>
+	</nav>
+
+
+<!-- ========== HEADER SECTION ========== -->
+	<section id="home" name="home"></section>
+	<div id="projectheader" style="background-color: #a0ccb5">
+		<div class="container">
+			<div class="logo">
+				<a href="./index.html#home"><img src="assets/img/logo.png"></a>
+			</div>
+			<br>
+			<div class="row">
+				<h1>M.C. NOISE REDUCTION</h1>
+				<div class="col-lg-6 col-lg-offset-3">
+				</div>
+			</div>
+		</div><!-- /container -->
+	</div><!-- /headerwrap -->
+	
+	
+	<!-- ========== OVERVIEW SECTION ========== -->
+	<section id="overview" name="overview"></section>
+	<div id="f">
+		<div class="container">
+			<div class="row">
+				<h3>OVERVIEW</h3>
+				<p class="centered"><i class="icon icon-circle"></i><i class="icon icon-circle"></i><i class="icon icon-circle"></i></p>
+				
+				<!-- INTRO INFORMATION-->
+				<div class="col-lg-6 col-lg-offset-3">
+					<p>Monte Carlo ray tracing utilizes random point sampling, and estimated integrals to produce highly realistic images. However, the drawback is that the algorithm needs to take upwards of 1024 samples per pixel to obtain an image with acceptable noise levels. As one would imagine, this is extremely time consuming.</p> 
+
+					<br>
+					<figure class="figure">
+  						<img src="./assets/img/noise_imgs/nr1.png" class="figure-img img-fluid rounded img-responsive" alt="A generic square placeholder image with rounded corners in a figure.">
+  						<figcaption class="figure-caption">Left: 1024spp (718.0s), Right: 4spp (3.2s)</figcaption>
+					</figure>
+					<br>
+					<br>
+
+					<p>This being said, a number of post processing techniques can be used to drastically reduce the noise while maintaining the detail of the scene that Monte Carlo renderings are known for.</p>
+
+				</div>								
+			</div>
+		</div><!-- /container -->
+	</div><!-- /f -->
+	
+
+<!-- ========== APPROACH SECTION ========== -->
+	<section id="approach" name="approach"></section>
+	<div id="f">
+		<div class="container">
+			<div class="row">
+				<h3>APPROACH</h3>
+				<p class="centered"><i class="icon icon-circle"></i><i class="icon icon-circle"></i><i class="icon icon-circle"></i></p>
+				
+				<!-- INTRO INFORMATION-->
+				<div class="col-lg-6 col-lg-offset-3">
+
+					<h4 style="color:white; text-decoration: underline;">Simple Filters</h4>
+
+					<p>As an initial attempt at reducing the noise, I implemented three simple filters which only take a pixel’s color value into consideration. These filters take as input a vector containing the pixel values, the height and width of the image, and the size of the kernel to be used.</p>
+					<br>
+
+					<p>The first is the simple mean filter. This function takes a neighborhood around a given pixel, averages all the values, and applies it to the center pixel. The overall effect of this filter is a blurring effect which is effective at reducing noise, but at the expense of overall detail.</p>
+
+					<br>
+					<figure class="figure">
+  						<img src="./assets/img/noise_imgs/nr2.png" class="figure-img img-fluid rounded img-responsive" alt="A generic square placeholder image with rounded corners in a figure.">
+  						<figcaption class="figure-caption">Left: 64spp – No Filter (37.8s), Right: 64spp – 7x7 Simple Mean (40.3s)</figcaption>
+					</figure>
+					<br>
+					<br>
+					
+					<p>The second filter is the simple median filter. The median filter, in principle is great at reducing periodic noise and less great at reducing aperiodic noise. This function takes the median of the neighbors surrounding a pixel and applies it to said pixel. This filter reduced some noise, but not nearly enough to be acceptable on its own.</p>
+
+					<br>
+					<figure class="figure">
+  						<img src="./assets/img/noise_imgs/nr3.png" class="figure-img img-fluid rounded img-responsive" alt="A generic square placeholder image with rounded corners in a figure.">
+  						<figcaption class="figure-caption">Left: 64spp – 5x5 Simple Median (39.0s), Right: 64spp – 7x7 Simple Median (39.3s)</figcaption>
+					</figure>
+					<br>
+					<br>
+
+					<p>The third and last of the simple filters is the simple gaussian. This function takes the size of the kernel inputted by the user and generates a gaussian kernel (Pascal’s triangle). After generating the kernel, the algorithm applies it to the neighborhood around a given pixel. The surrounding pixels are multiplied by the weights supplied by the kernel and added together. The total is the divided by the sum of the numbers in the kernel.</p>
+
+					<br>
+					<figure class="figure">
+  						<img src="./assets/img/noise_imgs/nr4.png" class="figure-img img-fluid rounded img-responsive" alt="A generic square placeholder image with rounded corners in a figure.">
+  						<figcaption class="figure-caption">Left: 64spp – 5x5 Simple Gaussian (40.2s), Right: 64spp – 7x7 Simple Gaussian (40.9s)</figcaption>
+					</figure>
+					<br>
+					<br>
+
+					<p>The main idea is to obtain a weighted average of pixels giving the pixels nearest to the center the most weight and reduce as the pixels get further away. This filter had the effect of reducing noise, but also at the expense of reducing image fidelity overall.</p>
+
+
+					<h4 style="color:white; text-decoration: underline;">Object Filters</h4>
+
+					<p>The simple filters worked well enough for a preliminary trial, but they were not making use of all of the information that the scene has to offer. These filters were blurring across the entire image without taking into concern which pixels belonged to which object. This led me to implement a series of filters which considered the objects that each pixel belonged to.</p>
+
+					<br>
+					<figure class="figure">
+  						<img src="./assets/img/noise_imgs/o_buffer.jpg" class="figure-img img-fluid rounded img-responsive" alt="A generic square placeholder image with rounded corners in a figure.">
+  						<figcaption class="figure-caption">Object Buffer</figcaption>
+					</figure>
+					<br>
+					<br>
+
+					<p>The first of the series is the object mean which takes the neighboring pixels and averages them together. However, the algorithm only considers any neighbor a viable candidate if it shares the same object as the center pixel. This filter was a big improvement on the simple mean filter as it helped to preserve hard edges along object boundaries.</p>
+
+					<br>
+					<figure class="figure">
+  						<img src="./assets/img/noise_imgs/nr5.png" class="figure-img img-fluid rounded img-responsive" alt="A generic square placeholder image with rounded corners in a figure.">
+  						<figcaption class="figure-caption">Left: 64spp – 3x3 Object Mean (38.1s), Right: 64spp – 7x7 Simple Gaussian (38.4s)</figcaption>
+					</figure>
+					<br>
+					<br>
+
+					<p>The second object filter is the object median. This filter takes the neighboring pixels, finds those pixels which share the same object, takes the median value of the group, and assigns it to the center pixel. This method was able to reduce a significant amount of noise while preserving the high frequency detail of the scene.</p>
+
+					<br>
+					<figure class="figure">
+  						<img src="./assets/img/noise_imgs/nr6.png" class="figure-img img-fluid rounded img-responsive" alt="A generic square placeholder image with rounded corners in a figure.">
+  						<figcaption class="figure-caption">Left: 64spp – 3x3 Object Median (39.4s), Right: 64spp – 7x7 Object Median (38.2s)</figcaption>
+					</figure>
+					<br>
+					<br>
+
+					<p>The last object based method is the object based gaussian filter. This filter took the user inputted size and constructed a gaussian kernel to be applied across the image. It then took each pixel, considered pixels with the same object as the center pixel, applied the weight according to the gaussian kernel, computed the sum of those weighted values, and divided by only those weights which contributed to the total.</p>
+					<br>
+					
+					<p>This weighted average was then applied to the center pixel. This filter gives precedence to pixels closer to the center pixel while still considering only those pixels which share the same object. The results obtained from this filter were acceptable and greatly reduced noise throughout the image.</p>
+
+					<br>
+					<figure class="figure">
+  						<img src="./assets/img/noise_imgs/nr7.png" class="figure-img img-fluid rounded img-responsive" alt="A generic square placeholder image with rounded corners in a figure.">
+  						<figcaption class="figure-caption">Left: 64spp – 3x3 Object Gaussian (38.0s), Right: 64spp – 7x7 Object Gaussian (37.8s)</figcaption>
+					</figure>
+					<br>
+					<br>
+
+					<h4 style="color:white; text-decoration: underline;">BRDF Filters</h4>
+
+					<p>The object filters were a huge improvement over the simple filters in reducing noise while maintaining detail, but they fell short when preserving detail on specular surfaces. This is because the filters only take into consideration the object belonging to the pixel and not the object belonging to the reflection vector. My solution to this problem was to build upon the object filters; the filters would check if the surface is specular. If so, the filter would only be applied across those pixels whose reflection vectors belonged to the same object. Otherwise, the object filter would be applied as normal.</p>
+
+					<br>
+					<figure class="figure">
+  						<img src="./assets/img/noise_imgs/brdf_buffer.jpg" class="figure-img img-fluid rounded img-responsive" alt="A generic square placeholder image with rounded corners in a figure.">
+  						<figcaption class="figure-caption">Green Diffuse Object Buffer, Red Specular Reflection Object Buffer</figcaption>
+					</figure>
+					<br>
+					<br>
+
+					<p>The first of the BRDF filters is the mean function. This function takes as input, the vector of pixel values, the vector of objects for which the pixels belong to, the vector of the objects for which the reflection vectors belong to (-1 if diffuse or no intersection) and the height and width of the image, and the kernel size. The filter applies an object based mean across the vector of pixel values as usual until it encounters a pixel belonging to a specular object.</p>
+					<br>
+						
+					<p>When this happens, the filter, instead of considering pixels with the same object, only considers pixels with reflection vectors belonging to the same object. Then, the viable pixel values are averaged and applied to the center pixel. This method worked reasonably well in preserving reflection detail on specular surfaces.</p>
+
+					<br>
+					<figure class="figure">
+  						<img src="./assets/img/noise_imgs/nr8.png" class="figure-img img-fluid rounded img-responsive" alt="A generic square placeholder image with rounded corners in a figure.">
+  						<figcaption class="figure-caption">Left: 64spp – 3x3 BRDF Mean (43.7s), Right: 64spp – 7x7 BRDF Mean (42.6s)</figcaption>
+					</figure>
+					<br>
+					<br>
+
+					<p>The second BRDF based filter is the gaussian variation. This essentially works the same way as the BRDF mean; however it utilizes a weighted kernel with size specified by the user. When this method encounters a specular object, it applies the weights to only those pixels with reflection vectors belonging to the same object.</p>
+					<br>
+
+					<p>It continues to take the total of these weighted pixel values and divide by only those weights used. This value is then applied to the center, specular pixel. This method also worked well in maintaining the detail in specular objects.</p>
+
+					<br>
+					<figure class="figure">
+  						<img src="./assets/img/noise_imgs/nr9.png" class="figure-img img-fluid rounded img-responsive" alt="A generic square placeholder image with rounded corners in a figure.">
+  						<figcaption class="figure-caption">Left: 64spp – 3x3 BRDF Gaussian (44.2s), Right: 64spp – 7x7 BRDF Gaussian (45.0s)</figcaption>
+					</figure>
+					<br>
+					<br>
+
+					<h4 style="color:white; text-decoration: underline;">Normal Filters</h4>
+
+					<p>The next set of filters takes more information from the scene in an attempt to decrease the amount of noise in the renderings while preserving detail. The main idea behind these filters is that pixels with similar normal vectors should have similar pixel values. This is especially so in scenes with simple geometry. The following filters all take the pixel value vector, the object vector, the normal vector (normal value for each pixel), the height and width of the image and the size of the kernel to be applied.</p>
+
+					<br>
+					<figure class="figure">
+  						<img src="./assets/img/noise_imgs/n_buffer.jpg" class="figure-img img-fluid rounded img-responsive" alt="A generic square placeholder image with rounded corners in a figure.">
+  						<figcaption class="figure-caption">Normal Buffer</figcaption>
+					</figure>
+					<br>
+					<br>
+
+					<p>The normal mean filter takes a pixels neighbors and finds which pixels share the same object. Then, each of the neighboring pixels’ normal vectors are evaluated for their similarity with the center pixel’s normal value (dot product). These weights are then applied to each respective pixel value, totaled, then averaged (divided by the total weights). This final value is applied to the center pixel. This filter worked reasonably well in reducing overall noise while preserving detail.</p>
+
+					<br>
+					<figure class="figure">
+  						<img src="./assets/img/noise_imgs/nr10.png" class="figure-img img-fluid rounded img-responsive" alt="A generic square placeholder image with rounded corners in a figure.">
+  						<figcaption class="figure-caption">Left: 64spp – 3x3 Normal Mean (43.7s), Right: 64spp – 7x7 Normal Mean (43.7s)</figcaption>
+					</figure>
+					<br>
+					<br>
+
+					<p>The normal gaussian variant constructs a gaussian kernel (weighted matrix) with the size determined by the user input. Then, each pixel in the neighborhood is assessed to see if it belongs to the same object as the center pixel. For each viable pixel, its normal is evaluated to see how similar it is to the center pixel’s normal vector.</p>
+					<br>
+
+					<p>These weights are multiplied by the weights in the kernel, and finally multiplied to the pixel values themselves. These weighted values are averaged and applied to the center pixel. This algorithm not only assumes that pixels with similar normal values should have similar values, but also that pixels closer to the center pixel should have more weight.</p>
+					<br>
+
+					<p>This method produced less impressive results than the normal mean filter, and removed overall noise in a reasonably acceptable fashion. The filter gives too much weight to the center pixels for it to work well on an image with this much noise.</p>
+
+					<br>
+					<figure class="figure">
+  						<img src="./assets/img/noise_imgs/nr11.png" class="figure-img img-fluid rounded img-responsive" alt="A generic square placeholder image with rounded corners in a figure.">
+  						<figcaption class="figure-caption">Left: 64spp – 3x3 Normal Gaussian (44.8s), Right: 64spp – 7x7 Normal Gaussian (45.2s)</figcaption>
+					</figure>
+					<br>
+					<br>
+
+					<h4 style="color:white; text-decoration: underline;">DOF Filters</h4>
+
+					<p>The last variation of filter is the depth of field variation. The basic idea behind this filter is to use different sized filters for pixels at different distances. This filters takes as input the vector of pixel values, the vector of pixel object IDs, the vector of pixel depths, the height and width of the image, the number of levels of focus in the image, and the number of the level which should be in focus.</p>
+
+					<br>
+					<figure class="figure">
+  						<img src="./assets/img/noise_imgs/d_buffer.jpg" class="figure-img img-fluid rounded img-responsive" alt="A generic square placeholder image with rounded corners in a figure.">
+  						<figcaption class="figure-caption">Depth Buffer</figcaption>
+					</figure>
+					<br>
+					<br>
+
+					<p>The DOF filter first computes the minimum and maximum pixel depths in the scene. From this, it bins the pixels according to their depth and the amount of levels specified by the client. From the designated focus level, the algorithm increments the filter size by two pixels for each level on either side of it.</p>
+					<br>
+
+					<p>For example, the pixels in the focus level are left alone. The pixels one level closer and one level further are subject to an object mean filter of size three. The pixels one level closer and further than those two levels are then subject to a filter of size five. The process continues until all pixels are filtered.</p>
+					<br>
+
+					<p>This filter produced interesting results but cannot really stand on its own for overall noise reduction. It would produce much more visually pleasing results when used in conjunction with other general noise reduction filters like the object median filter.</p>
+
+					<br>
+					<figure class="figure">
+  						<img src="./assets/img/noise_imgs/nr12.png" class="figure-img img-fluid rounded img-responsive" alt="A generic square placeholder image with rounded corners in a figure.">
+  						<figcaption class="figure-caption">Left: Focus Map, Right: 64spp – Front Focus Level, Filter Sizes (Front-Back): 1 3 5 7 9 11 13 15 17 19 (45.2s)</figcaption>
+					</figure>
+					<br>
+					<br>
+
+					<br>
+					<figure class="figure">
+  						<img src="./assets/img/noise_imgs/nr13.png" class="figure-img img-fluid rounded img-responsive" alt="A generic square placeholder image with rounded corners in a figure.">
+  						<figcaption class="figure-caption">Left: Focus Map, Right: 64spp – Center Focus Level, Filter Sizes (Front-Back): 9 7 5 3 1 3 5 7 9 11 (43.9s)</figcaption>
+					</figure>
+					<br>
+					<br>
+
+					<br>
+					<figure class="figure">
+  						<img src="./assets/img/noise_imgs/nr14.png" class="figure-img img-fluid rounded img-responsive" alt="A generic square placeholder image with rounded corners in a figure.">
+  						<figcaption class="figure-caption">Left: Focus Map, Right: 64spp – Back Focus Level, Filter Sizes (Front-Back): 19 17 15 13 11 9 7 5 3 1 (43.1s)</figcaption>
+					</figure>
+					<br>
+					<br>
+				</div>	
+			</div>
+		</div><!-- /container -->
+	</div><!-- /f -->
+
+	<!-- ========== RESULTS SECTION ========== -->
+	<section id="results" name="results"></section>
+	<div id="f">
+		<div class="container">
+			<div class="row">
+				<h3>RESULTS</h3>
+				<p class="centered"><i class="icon icon-circle"></i><i class="icon icon-circle"></i><i class="icon icon-circle"></i></p>
+				
+				<!-- INTRO INFORMATION-->
+				<div class="col-lg-6 col-lg-offset-3">
+
+					<p>The main goal of these filters was to produce more visually pleasing results without increasing the amount of samples per pixels and therefore consuming less time. The filters were generally acceptable in their own right, but produced better results when combined. The combination which achieved the best overall results while taking least amount of time was applying an object median first (object specific aperiodic noise reduction) followed by a simple gaussian to reduce some of the aliasing introduced by the object based filter.</p>
+
+					<br>
+					<figure class="figure">
+  						<img src="./assets/img/noise_imgs/nr15.png" class="figure-img img-fluid rounded img-responsive" alt="A generic square placeholder image with rounded corners in a figure.">
+  						<figcaption class="figure-caption">Left: 256spp – No Filter (162.7s), Right: 32spp – 7x7 Object Median, 3x3 Simple Gaussian (17.8s)</figcaption>
+					</figure>
+					<br>
+					<br>
+
+					<p>Monte Carlo ray tracing is a great technique when attempting to render realistic scenes. That being said, an inordinate amount of samples per pixel are required in order to produce results which aren’t completely riddled with noise. As it turns out, a number of post processing techniques can be implemented in order to reduce some of this noise without increasing the amount of samples per pixel.</p>
+
+					<br>
+					<figure class="figure">
+  						<img src="./assets/img/noise_imgs/combined_1.gif" class="figure-img img-fluid rounded img-responsive" alt="A generic square placeholder image with rounded corners in a figure.">
+  						<figcaption class="figure-caption">Left: 16spp – No Filter (372.7s), Right: 4spp – Combo (126.5s)</figcaption>
+					</figure>
+					<br>
+					<br>
+					
+					<p>Simple filters are very cheap in terms of time, but don’t utilize enough information about the scene in order to produce acceptable results on their own. Object based filters take a pixel’s object into consideration when applying each filter and produce acceptable results with little time overhead. BRDF filters further this concept by considering whether each pixel belongs to a specular object and incorporates the reflection vector’s object. Normal filters take another step in increasing the amount of information utilized by a filter; it considers the normal vector associated with each pixel and uses it as a weight in considering a pixel’s value. Finally, the DOF filter takes the depth of a pixel and applies different sized filters for different depths. This filter provides interesting results, but does little in the way of reducing overall noise.</p>
+
+					<br>
+					<figure class="figure">
+  						<img src="./assets/img/noise_imgs/combined_2.gif" class="figure-img img-fluid rounded img-responsive" alt="A generic square placeholder image with rounded corners in a figure.">
+  						<figcaption class="figure-caption">Left: 32spp – No Filter (815.7s), Right: 16spp – Combo (412.1s)</figcaption>
+					</figure>
+					<br>
+					<br>
+
+					<p>The best function in terms of reducing general noise isn’t any one filter, but a combination of multiple filters. The combination which provided the best results with minimal time overhead was the object based median to remove aperiodic noise caused by under-sampling, followed by a simple gaussian filter to reduce some of the aliasing caused by the object based filter. This combination was able to produce similar results with time an order of magnitude less than those images produced with higher samples per pixel. With these results, I can conclude that post-processing can significantly reduce the amount of noise in Monte Carlo renderings while maintaining or improving upon both time complexity and visual fidelity.</p>
+
+					<p><a href="https://github.com/tryond/MC_Noise_Reduction" target="_blank"><button type="button" class="btn btn-warning">View Github Repo</button></a></p>
+
+				</div>								
+			</div>
+		</div><!-- /container -->
+	</div><!-- /f -->
+
+	
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	<script src="assets/js/classie.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/smoothscroll.js"></script>
+	<script src="assets/js/main.js"></script>
+</body>
+</html>

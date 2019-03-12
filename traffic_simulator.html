@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="Danny Tryon" content="">
+    <link rel="shortcut icon" href="assets/ico/favicon.png">
+
+    <title>Danny Tryon</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="assets/css/main.css" rel="stylesheet">
+	<link rel="stylesheet" href="assets/css/font-awesome.min.css">
+
+    <script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/modernizr.custom.js"></script>
+	<script src="assets/js/jquery.bcSwipe.js"></script>
+	
+
+	
+    <link href='http://fonts.googleapis.com/css?family=Oswald:400,300,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=EB+Garamond' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="assets/js/html5shiv.js"></script>
+      <script src="assets/js/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body data-spy="scroll" data-offset="0" data-target="#theMenu">
+		
+	<!-- Menu -->
+	<nav class="menu" id="theMenu">
+		<div class="menu-wrap">
+			<h1 class="logo"><a href="./index.html#home">DT</a></h1>
+			<i class="icon-remove menu-close"></i>
+			<!-- class="smoothScroll" -->
+			<a href="./index.html#home">Home</a>
+			<a href="./index.html#about">About</a>
+			<a href="./index.html#portfolio">Portfolio</a>
+			<a href="./index.html#contact">Contact</a>
+			<a href="https://github.com/tryond" target="_blank"><i class="icon-github"></i></a>
+			<a href="https://linkedin.com/in/tryond" target="_blank"><i class="icon-linkedin"></i></a>
+			<a href="#email"><i class="icon-envelope"></i></a>
+		</div>
+		
+		<!-- Menu button -->
+		<div id="menuToggle"><i class="icon-reorder"></i></div>
+	</nav>
+
+
+<!-- ========== HEADER SECTION ========== -->
+	<section id="home" name="home"></section>
+	<div id="projectheader">
+		<div class="container">
+			<div class="logo">
+				<a href="./index.html#home"><img src="assets/img/logo.png"></a>
+			</div>
+			<br>
+			<div class="row">
+				<h1>TRAFFIC SIMULATOR</h1>
+				<div class="col-lg-6 col-lg-offset-3">
+				</div>
+			</div>
+		</div><!-- /container -->
+	</div><!-- /headerwrap -->
+	
+	
+	<!-- ========== OVERVIEW SECTION ========== -->
+	<section id="overview" name="overview"></section>
+	<div id="f">
+		<div class="container">
+			<div class="row">
+				<h3>OVERVIEW</h3>
+				<p class="centered"><i class="icon icon-circle"></i><i class="icon icon-circle"></i><i class="icon icon-circle"></i></p>
+				
+				<!-- INTRO INFORMATION-->
+				<div class="col-lg-6 col-lg-offset-3">
+					<p>This was group project assigned in an upper division software design course at UCI. The assignment required that our group of 6 design a fully functional traffic simulator for use in a civil engineering course. The challenge was to design this application in the midst of changing requirements as a software developer should expect to encounter in the wild.</p>
+					
+					<br>
+					<img class="img-responsive" src="./assets/img/traffic_imgs/setup.png" />
+					<br>
+					<br>
+
+					<p>The simulator is required to track cars going at two different speeds, and accomodate left and right turns. It also must not allow for collisions. At any time, the student should be able to stop the simulation, and change the traffic light behavior or modify the amount of cars entering the map. Each light must also support a sensor, which modifies the timing based on whether or not cars are present. These features represent the final requirements that we eventually designed for.</p>
+
+				</div>								
+			</div>
+		</div><!-- /container -->
+	</div><!-- /f -->
+	
+
+<!-- ========== APPROACH SECTION ========== -->
+	<section id="approach" name="approach"></section>
+	<div id="f">
+		<div class="container">
+			<div class="row">
+				<h3>APPROACH</h3>
+				<p class="centered"><i class="icon icon-circle"></i><i class="icon icon-circle"></i><i class="icon icon-circle"></i></p>
+				
+				<!-- INTRO INFORMATION-->
+				<div class="col-lg-6 col-lg-offset-3">
+					<p>Our approach was to represent lanes as arrays of Vehicle objects, with Cars and Trucks being to subclasses. This way, we could utilize polymorphism to store each car or truck in a vehicle array and query each one's speed when attempting to move them forward. The algorithm for movement queried each northbound lane before moving on to the southbound lanes and so on. Each northbound lane (stored as a vehicle array) would work backwords, attempting to pull a vehicle into the next spot if that spot was occupied. This approach seemed very intuitive as vehicles cannot occupy spaces which are already taken (would result in a collision).</p>
+
+				</div>	
+			</div>
+		</div><!-- /container -->
+	</div><!-- /f -->
+
+	<!-- ========== CAROUSEL SECTION ========== -->	
+	<section id="portfolio" name="portfolio"></section>
+	<div id="f">
+		<div class="container">
+			<div class="row centered">
+				<h3>SIGNAL STATES</h3>
+				<p class="centered"><i class="icon icon-circle"></i><i class="icon icon-circle"></i><i class="icon icon-circle"></i></p>
+				
+				<div class="col-sm-4 col-sm-offset-4">
+					<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+						<!-- Wrapper for slides -->
+						<div class="carousel-inner">
+							<div class="item active centered">
+								<div class="thumbnail" style="background-color: #5d5d5d;">
+      								<img class="img-responsive" src="assets/img/traffic_imgs/t1.png" alt="...">
+      								<div class="caption" style="background-color:#1a1a1a;">
+        								<p><br>
+        								Horizontal: Stop
+        								<br>
+        								Vertical: Stop</p>
+      								</div>
+    							</div>
+							</div>
+							<div class="item centered">
+								<div class="thumbnail" style="background-color: #5d5d5d;">
+      								<img class="img-responsive" src="assets/img/traffic_imgs/t2.png" alt="...">
+      								<div class="caption" style="background-color:#1a1a1a;">
+        								<p><br>
+        								Horizontal: Left
+        								<br>
+        								Vertical: Right</p>
+      								</div>
+    							</div>
+							</div>
+							<div class="item centered">
+								<div class="thumbnail" style="background-color: #5d5d5d;">
+      								<img class="img-responsive" src="assets/img/traffic_imgs/t3.png" alt="...">
+      								<div class="caption" style="background-color:#1a1a1a;">
+        								<p><br>
+        								Horizontal: Right
+        								<br>
+        								Vertical: Left</p>
+      								</div>
+    							</div>
+							</div>
+							<div class="item centered">
+								<div class="thumbnail" style="background-color: #5d5d5d;">
+      								<img class="img-responsive" src="assets/img/traffic_imgs/t4.png" alt="...">
+      								<div class="caption" style="background-color:#1a1a1a;">
+        								<p><br>
+        								Horizontal: Stop
+        								<br>
+        								Vertical: Straight</p>
+      								</div>
+    							</div>
+							</div>
+							<div class="item centered">
+								<div class="thumbnail" style="background-color: #5d5d5d;">
+      								<img class="img-responsive" src="assets/img/traffic_imgs/t5.png" alt="...">
+      								<div class="caption" style="background-color:#1a1a1a;">
+        								<p><br>
+        								Horizontal: Straight
+        								<br>
+        								Vertical: Stop</p>
+      								</div>
+    							</div>
+							</div>
+						</div>
+						<br>
+						<br>
+						<br>
+						<ol class="carousel-indicators">
+						    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+						    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+						    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+						    <li data-target="#carousel-example-generic" data-slide-to="3"></li>
+						    <li data-target="#carousel-example-generic" data-slide-to="4"></li>
+						</ol>
+					</div>
+				</div><!-- col-lg-8 -->
+			</div><!-- row -->
+		</div><!-- container -->
+	</div>	<!-- f -->
+
+	<!-- ========== RESULTS SECTION ========== -->
+	<section id="results" name="results"></section>
+	<div id="f">
+		<div class="container">
+			<div class="row">
+				<h3>RESULTS</h3>
+				<p class="centered"><i class="icon icon-circle"></i><i class="icon icon-circle"></i><i class="icon icon-circle"></i></p>
+				
+				<!-- INTRO INFORMATION-->
+				<div class="col-lg-6 col-lg-offset-3">
+					<p>Our simulation worked as intended and would provided immense educational value to future civics students. While this was a great learning opportunity with regard to design, it was an even better lesson in working with a team. Up until that point in my accademic career, I was very used to working alone and, quite frankly, strongly preferred it that way. However, I learned that two heads can be better than one, and six can be even better!</p>
+
+					<p>Just when I thought our collective minds were set on a certain decision, someone would enlighten the group with a different approach to a specific question and we would all be left wondering why we, ourselves didn't think of that! There's something really special about working with a group of diverse, motivated people, and I believe our end product was far greater for it!</p>
+
+					<p><a href="./assets/docs/traffic_simulation.pdf" target="_blank"><button type="button" class="btn btn-warning">See Full Writeup</button></a></p>
+
+				</div>								
+			</div>
+		</div><!-- /container -->
+	</div><!-- /f -->
+
+	
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	<script src="assets/js/classie.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/smoothscroll.js"></script>
+	<script src="assets/js/main.js"></script>
+</body>
+</html>

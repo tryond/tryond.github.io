@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="author" content="Daniel Lee Tryon">
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Danny Tryon</title>
+	<!-- <link rel="stylesheet" href="./style.css"> -->
+
+	<!-- If IE use the latest rendering engine -->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+ 
+	<!-- Set the page to the width of the device and set the zoon level -->
+	<meta name="viewport" content="width = device-width, initial-scale = 1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+
+ 
+	<style>
+		.jumbotron{
+   		background-color:#2E2D88;
+    	color:white;
+	}
+	/* Adds borders for tabs */
+	.tab-content {
+    	border-left: 1px solid #ddd;
+    	border-right: 1px solid #ddd;
+    	border-bottom: 1px solid #ddd;
+    	padding: 10px;
+	}
+	.nav-tabs {
+    	margin-bottom: 0;
+	}
+	.top-buffer {
+		margin-top: 70px;
+	}
+	.bottom-buffer {
+		margin-bottom: 5px;
+	}
+	footer {
+		margin: 0 0 0 0;
+		padding: 9px 0 1px 0;
+	}
+	.row div {
+    border-bottom: 1px solid #ccc;
+	}
+	.row div:last-of-type div {
+    border-bottom: none;
+	}
+
+	.img-proj {
+		object-fit: none; /* Do not scale the image */
+  		object-position: center; /* Center the image within the element */
+  		width: 100%;
+  		max-height: 250px;
+  		margin-bottom: 1rem;
+	}
+
+	.img-space {
+		margin-top: 20px;
+		margin-bottom: 20px;
+	}
+	h3 {
+		margin-top: 20px;
+	}
+	.card {
+		z-index: 10;
+	}
+
+	.img-responsive { 
+    width:100%;
+}
+
+	</style>
+</head>
+<body>
+	<header>
+		<!-- 
+		<nav class="navbar">
+			<ul>
+				<li><a href="#banner">home</a></li>
+				<li><a href="#about">about</a></li>
+				<li><a href="#projects">projects</a></li>
+				<li><a href="#contact">contact</a></li>
+			</ul>
+		</nav>
+		-->
+		<!-- Grey with black text -->
+		<nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
+		  <!-- Brand -->
+		  <img class="navbar-brand bottom-buffer" style="width:25px;" src="./head.png"  />
+
+		  <!-- Toggler/collapsibe Button -->
+		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+		    <span class="navbar-toggler-icon"></span>
+		  </button>
+
+		  <!-- Navbar links -->
+		  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+		    <ul class="navbar-nav">
+		      <li class="nav-item">
+		        <a class="nav-link" href="https://tryond.github.io/#banner">home</a>
+		      </li>
+		      <li class="nav-item">
+		        <a class="nav-link" href="https://tryond.github.io/#about">about</a>
+		      </li>
+		      <li class="nav-item">
+		        <a class="nav-link" href="https://tryond.github.io/#projects">projects</a>
+		      </li> 
+		      <li class="nav-item">
+		        <a class="nav-link" href="https://tryond.github.io/#contact">contact</a>
+		      </li>
+		    </ul>
+		  </div> 
+		</nav>
+
+
+	</header>
+	<!-- End Header -->
+
+	<div class="col-xs-12" style="height:100px;"></div>
+
+	<div class="container">
+	
+	<h1 class="text-center">Traffic Simulator</h1>
+
+	<div class="row"> 
+
+			<div id="overview">
+				<h3>Overview:</h3>
+
+				<p>This was group project assigned in an upper division software design course at UCI. The assignment required that our group of 6 design a fully functional traffic simulator for use in a civil engineering course. The challenge was to design this application in the midst of changing requirements as a software developer should expect to encounter in the wild.</p>
+
+				<p>The simulator is required to track cars going at two different speeds, and accomodate left and right turns. It also must not allow for collisions. At any time, the student should be able to stop the simulation, and change the traffic light behavior or modify the amount of cars entering the map. Each light must also support a sensor, which modifies the timing based on whether or not cars are present. These features represent the final requirements that we eventually designed for.</p>
+
+			</div>
+
+	</div>
+
+	
+	<div class="row"> <div class="col-xs-12"> <img class="img-responsive" src="traffic_imgs/setup.png"/> </div> </div>
+
+	<div class="row"> 
+
+			<div id="approach">
+				<h3>Approach:</h3>
+
+				<p class="ps-2">Our approach was to represent lanes as arrays of Vehicle objects, with Cars and Trucks being to subclasses. This way, we could utilize polymorphism to store each car or truck in a vehicle array and query each one's speed when attempting to move them forward. The algorithm for movement queried each northbound lane before moving on to the southbound lanes and so on. Each northbound lane (stored as a vehicle array) would work backwords, attempting to pull a vehicle into the next spot if that spot was occupied. This approach seemed very intuitive as vehicles cannot occupy spaces which are already taken (would result in a collision).</p>
+
+				<p>This approach also played well with our traffic signal scheme which represented light status in five different states:</p>
+
+				<!-- SHOW 5 STATES -->
+					<div class="row">
+ 					<div class="col-xs-6 col-md-2 col-md-offset-1">
+   					<img class="img-responsive" src="traffic_imgs/t1.png" />
+ 					</div>
+ 					<div class="col-xs-6 col-md-2">
+						<img class="img-responsive" src="traffic_imgs/t2.png" /> 					
+					</div>
+
+ 					<div class="col-xs-6 col-md-2">
+						<img class="img-responsive" src="traffic_imgs/t3.png" /> 					
+					</div>
+ 					<div class="col-xs-6 col-md-2">
+						<img class="img-responsive" src="traffic_imgs/t4.png" /> 					
+					</div>
+ 					<div class="col-xs-6 col-md-2">
+						<img class="img-responsive" src="traffic_imgs/t5.png" /> 					
+					</div>
+
+				</div>
+
+				<p>Having the Traffic Light objects store a state as an enum, allowed for us to ensure that the states were only one of those five, while ensuring that every possible scenario was accounted for. So, when the next location in the vehicle array is queried and a traffic light is encountered, the state informs the algorithm whether or not a car can be passed and, if so, from what direction and lane.</p>
+
+				<p>The Traffic Light objects also stored the sensor behavior, which we decided would query all red lanes when encountered during runtime. If the algorithm determines that a car is waiting at a red light, it will increment the local timer by one extra cycle to reduce wait time. This approach made evident the importance of sensors in real world traffic. </p>
+			</div>
+
+	</div>
+
+	<div class="row"> 
+
+			<div id="results">
+				<h3>Results:</h3>
+
+				<p>Our simulation worked as intended and would provided immense educational value to future civics students. While this was a great learning opportunity with regard to design, it was an even better lesson in working with a team. Up until that point in my accademic career, I was very used to working alone and, quite frankly, strongly preferred it that way. However, I learned that two heads can be better than one, and six can be even better!</p>
+
+				<p>Just when I thought our collective minds were set on a certain decision, someone would enlighten the group with a different approach to a specific question and we would all be left wondering why we, ourselves didn't think of that! There's something really special about working with a group of diverse, motivated people, and I believe our end product was far greater for it!</p>
+			</div>
+
+	</div>
+
+	<div class="col-xs-12" style="height:25px;"></div>
+
+	<a href="https://tryond.github.io/traffic_simulation.pdf" class="btn btn-primary" role="button">Full Writeup</a>
+
+	<div class="col-xs-12" style="height:25px;"></div>
+
+
+</div>
+
+<footer class="container-fluid bg-primary">
+		<p class="text-center text-white">©Tryon - 2018</p>
+</footer>
+	<!-- End Footer -->
+	<!-- <script type="text/javascript" src="jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="main.js"></script>
+	<noscript></noscript> 
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+ 
+	-->
+
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+<!-- Use downloaded version of Bootstrap -->
+<script src="js/bootstrap.min.js"></script>
+
+</body>
+</html>
